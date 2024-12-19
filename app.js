@@ -29,6 +29,16 @@ const employeeSchema = new mongoose.Schema({
 
 const Employee = mongoose.model('Employee', employeeSchema);
 
+app.get('/books', async (req, res) => {
+    try {
+        const books = await Book.find();
+        res.status(200).json(books);
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to retrieve books.', error: err.message });
+    }
+});
+
+
 // Route لإضافة كتاب جديد
 app.post('/books', async (req, res) => {
     try {
@@ -38,6 +48,16 @@ app.post('/books', async (req, res) => {
         res.status(201).json({ message: 'Book added successfully!', book: newBook });
     } catch (err) {
         res.status(500).json({ message: 'Failed to add the book.', error: err.message });
+    }
+});
+
+
+app.get('/employees', async (req, res) => {
+    try {
+        const employees = await Employee.find();
+        res.status(200).json(employees);
+    } catch (err) {
+        res.status(500).json({ message: 'Failed to retrieve employees.', error: err.message });
     }
 });
 
